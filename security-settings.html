@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Security Settings</title></head>
+<body>
+<h1>تنظیمات امنیتی حساب</h1>
+<section>
+<label>رمز عبور جدید</label>
+<input id="password" type="password" placeholder="رمز جدید">
+<button onclick="changePassword()">تغییر رمز</button>
+</section>
+<section>
+<label>تایید دو مرحله‌ای</label>
+<button onclick="enable2FA()">فعال سازی</button>
+</section>
+<section>
+<button onclick="logoutAll()">خروج از همه دستگاه‌ها</button>
+</section>
+<script src="security.js"></script>
+</body>
+</html>
