@@ -1,0 +1,7 @@
+{
+  "name":"chatrom-backend",
+  "version":"1.0.0",
+  "type":"module",
+  "scripts":{"start":"node server.js"},
+  "dependencies":{"express":"latest","cors":"latest","bcrypt":"latest","jsonwebtoken":"latest","mongoose":"latest","dotenv":"latest"}
+}
