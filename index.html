@@ -9,45 +9,40 @@
 <body>
 <div id="auth" class="auth-box">
   <h1>💬 ChatRom</h1>
-  <input id="username" placeholder="نام کاربری">
-  <input id="password" type="password" placeholder="رمز عبور">
-  <button onclick="register()">ثبت نام</button>
-  <button onclick="login()">ورود</button>
-  <p id="authMessage"></p>
+  <div class="tabs">
+    <button onclick="showAuth('login')">ورود</button>
+    <button onclick="showAuth('register')">ثبت نام</button>
+  </div>
+
+  <div id="loginForm">
+    <input id="loginUser" placeholder="نام کاربری">
+    <input id="loginPass" type="password" placeholder="رمز عبور">
+    <button onclick="login()">ورود</button>
+  </div>
+
+  <div id="registerForm" style="display:none">
+    <input id="registerUser" placeholder="نام کاربری">
+    <input id="registerPass" type="password" placeholder="رمز عبور">
+    <input id="registerPass2" type="password" placeholder="تکرار رمز عبور">
+    <button onclick="register()">ساخت حساب</button>
+  </div>
 </div>
 
-<div class="app" id="chatApp" style="display:none">
+<div id="chatApp" class="app" style="display:none">
   <aside class="sidebar">
     <div class="brand">💬 ChatRom</div>
-    <div class="profile"><div class="avatar">👤</div><div><b id="currentUser">کاربر</b><span>🟢 فعال</span></div></div>
-    <div class="chat active">گفتگوی عمومی</div>
-    <div class="chat">دوستان</div>
-    <div class="chat">گروه‌ها</div>
+    <div class="profile">کاربر</div>
   </aside>
   <main class="chatbox">
-    <header><b>💬 گفتگوی سریع</b><small> آنلاین</small></header>
-    <section id="messages">
-      <div class="msg received">سلام! به ChatRom خوش آمدید</div>
-    </section>
+    <header>گفتگوی عمومی</header>
+    <section id="messages"></section>
     <footer>
-      <button class="attach">📎</button>
-      <input id="input" placeholder="پیام خود را بنویسید...">
+      <input id="input" placeholder="پیام بنویسید...">
       <button onclick="sendMessage()">➤</button>
     </footer>
   </main>
 </div>
-
-<script>
-async function register(){
- const r=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:username.value,password:password.value})});
- const d=await r.json(); authMessage.innerText=d.message||'ثبت نام انجام شد';
-}
-async function login(){
- const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:username.value,password:password.value})});
- const d=await r.json();
- if(d.token){localStorage.token=d.token;auth.style.display='none';chatApp.style.display='flex';currentUser.innerText=username.value}else authMessage.innerText='اطلاعات اشتباه است';
-}
-</script>
 <script src="app.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>
