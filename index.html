@@ -7,10 +7,19 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="app">
+<div id="auth" class="auth-box">
+  <h1>💬 ChatRom</h1>
+  <input id="username" placeholder="نام کاربری">
+  <input id="password" type="password" placeholder="رمز عبور">
+  <button onclick="register()">ثبت نام</button>
+  <button onclick="login()">ورود</button>
+  <p id="authMessage"></p>
+</div>
+
+<div class="app" id="chatApp" style="display:none">
   <aside class="sidebar">
     <div class="brand">💬 ChatRom</div>
-    <div class="profile"><div class="avatar">👤</div><div><b>کاربر آنلاین</b><span>🟢 فعال</span></div></div>
+    <div class="profile"><div class="avatar">👤</div><div><b id="currentUser">کاربر</b><span>🟢 فعال</span></div></div>
     <div class="chat active">گفتگوی عمومی</div>
     <div class="chat">دوستان</div>
     <div class="chat">گروه‌ها</div>
@@ -27,6 +36,18 @@
     </footer>
   </main>
 </div>
+
+<script>
+async function register(){
+ const r=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:username.value,password:password.value})});
+ const d=await r.json(); authMessage.innerText=d.message||'ثبت نام انجام شد';
+}
+async function login(){
+ const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:username.value,password:password.value})});
+ const d=await r.json();
+ if(d.token){localStorage.token=d.token;auth.style.display='none';chatApp.style.display='flex';currentUser.innerText=username.value}else authMessage.innerText='اطلاعات اشتباه است';
+}
+</script>
 <script src="app.js"></script>
 </body>
 </html>
